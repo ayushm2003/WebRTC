@@ -19,6 +19,18 @@ loginBtn.addEventListener("click", function(event) {
     }
 })
 
+connectToOtherUsernameBtn.addEventListener("click", function(event) {
+    userToConnectTo = otherUsernameInput.value;
+    console.log(userToConnectTo)
+
+    if (userToConnectTo.length > 0) {
+        send({
+            name: userToConnectTo,
+            type: "offer",
+            offer: "I see you made it"
+        })
+    }
+})
 
 connection.onmessage = function (message) { 
     console.log("Got message", message.data);
@@ -28,7 +40,7 @@ connection.onmessage = function (message) {
        case "login": 
           onLogin(data.success); 
           break; 
-       case "offer": 
+       case "offer":
           onOffer(data.offer, data.name); 
           break; 
        case "answer": 
