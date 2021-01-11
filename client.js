@@ -19,18 +19,6 @@ loginBtn.addEventListener("click", function(event) {
     }
 })
 
-connectToOtherUsernameBtn.addEventListener("click", function(event) {
-    userToConnectTo = otherUsernameInput.value;
-    console.log(userToConnectTo)
-
-    if (userToConnectTo.length > 0) {
-        send({
-            name: userToConnectTo,
-            type: "offer",
-            offer: "I see you made it"
-        })
-    }
-})
 
 connection.onmessage = function (message) { 
     console.log("Got message", message.data);
@@ -83,6 +71,27 @@ connection.onmessage = function (message) {
        }; 
     } 
  };
+
+ connectToOtherUsernameBtn.addEventListener("click", function(event) {
+    userToConnectTo = otherUsernameInput.value;
+    connectedUser = userToConnectTo
+    console.log()
+
+    if (userToConnectTo.length > 0) {
+        myConnection.createOffer(function (offer) {
+            console.log(offer)
+            send({
+                type: "offer",
+                offer: offer
+            })
+
+            myConnection.setLocalDescription(offer)
+            console.log(myConnection.setLocalDescription(offer))
+        }, function (error) {
+            alert("An error has occurred", error)
+        })
+    }
+})
 
 connection.onopen = function () {
     console.log("Connected")
