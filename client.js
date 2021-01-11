@@ -110,6 +110,14 @@ function onOffer (offer, name) {
     })
 }
 
+function onAnswer(answer) {
+    myConnection.setRemoteDescription(new RTCSessionDescription(answer));
+}
+
+function onCandidate (candidate) {
+    myConnection.addIceCandidate(new RTCIceCandidate(candidate));
+}
+
 connection.onopen = function () {
     console.log("Connected")
 };
