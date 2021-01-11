@@ -93,6 +93,23 @@ connection.onmessage = function (message) {
     }
 })
 
+function onOffer (offer, name) {
+    connectedUser = name
+
+    myConnection.setRemoteDescription(new RTCSessionDescription(offer))
+
+    myfunction.createAnswer(function (answer) {
+        myConnection.setLocalDescription(answer)
+
+        send({
+            type: "answer",
+            answer: answer
+        })
+    }, function (error) {
+        alert("oops...error")
+    })
+}
+
 connection.onopen = function () {
     console.log("Connected")
 };
